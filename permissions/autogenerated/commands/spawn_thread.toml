@@ -1,0 +1,13 @@
+# Automatically generated - DO NOT EDIT!
+
+"$schema" = "../../schemas/schema.json"
+
+[[permission]]
+identifier = "allow-spawn-thread"
+description = "Enables the spawn_thread command without any pre-configured scope."
+commands.allow = ["spawn_thread"]
+
+[[permission]]
+identifier = "deny-spawn-thread"
+description = "Denies the spawn_thread command without any pre-configured scope."
+commands.deny = ["spawn_thread"]
