@@ -1,6 +1,6 @@
 use std::error::Error;
 use anyhow::Result;
-use discord_rich_presence::{DiscordIpc, DiscordIpcClient};
+use rpcdiscord::{DiscordIpc, DiscordIpcClient};
 use once_cell::sync::Lazy;
 use tokio::sync::Mutex;
 
