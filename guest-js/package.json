@@ -1,5 +1,9 @@
 {
-  "name": "guest-js",
+  "name": "tauri-plugin-drpc",
+  "author": {
+    "name": "smokingplaya"
+  },
+  "version": "1.0.1",
   "module": "index.ts",
   "type": "module",
   "devDependencies": {
