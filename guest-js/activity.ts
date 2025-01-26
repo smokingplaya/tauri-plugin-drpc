@@ -137,10 +137,6 @@ export class Activity {
     return this;
   }
 
-  async set() {
-    await invoke("drpc:set_activity", { activity: this.toString() });
-  }
-
   toString(): string {
     return JSON.stringify(this);
   }
