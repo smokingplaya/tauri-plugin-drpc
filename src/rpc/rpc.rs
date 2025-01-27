@@ -40,10 +40,12 @@ pub(crate) async fn initialize(
         .unwrap(); // yeah i can do that shit here
 
       if client.set_activity(payload).is_err() && client.reconnect().is_ok() {
+        std::thread::sleep(std::time::Duration::from_secs(5));
+
         continue;
     }
 
-      std::thread::sleep(std::time::Duration::from_secs(2));
+      std::thread::sleep(std::time::Duration::from_secs(1));
     }
   }
 }
