@@ -1,8 +1,10 @@
-use std::error::Error;
+use std::{error::Error, time::Duration};
 use anyhow::Result;
 use rpcdiscord::{DiscordIpc, DiscordIpcClient};
 use once_cell::sync::Lazy;
-use tokio::sync::Mutex;
+use tokio::{sync::Mutex, time::sleep};
+
+const SLEEP_FOR: Duration = Duration::from_secs(3);
 
 static ACTIVITY: Lazy<Mutex<Option<String>>> = Lazy::new(|| Mutex::new(None));
 
@@ -32,6 +34,9 @@ pub(crate) async fn initialize(
     if client.connect().is_ok() {
         break;
     }
+
+    sleep(SLEEP_FOR)
+      .await;
   }
 
   loop {
