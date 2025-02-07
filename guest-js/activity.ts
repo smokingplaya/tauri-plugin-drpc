@@ -1,5 +1,3 @@
-import { invoke } from "@tauri-apps/api/core";
-
 export enum ActivityType {
   Playing = 0,
   Listening = 2,
