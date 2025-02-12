@@ -39,8 +39,8 @@ npm i tauri-plugin-drpc
 ## Usage example
 
 ```ts
-import { setActivity } from "tauri-plugin-drpc";
-import { Activity, Assets, start } from "tauri-plugin-drpc/activity";
+import { start, setActivity } from "tauri-plugin-drpc";
+import { Activity, Assets } from "tauri-plugin-drpc/activity";
 
 // Get it from https://discord.com/developers/applications
 const applicationClientId = "APP_ID_HERE";
