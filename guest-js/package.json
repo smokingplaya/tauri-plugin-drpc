@@ -3,7 +3,7 @@
   "author": {
     "name": "smokingplaya"
   },
-  "version": "1.0.2",
+  "version": "1.0.3",
   "module": "index.ts",
   "type": "module",
   "devDependencies": {

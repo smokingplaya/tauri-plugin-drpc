@@ -8,12 +8,12 @@ static RPC_THREAD: Lazy<Mutex<Option<JoinHandle<()>>>> = Lazy::new(|| Mutex::new
 #[tauri::command]
 pub(crate) async fn spawn_thread(
   id: String
-) -> Result<String, String> {
+) -> Result<(), String> {
   let mut guard = RPC_THREAD.lock()
     .await;
 
   if guard.is_some() {
-    return Ok(String::from("Thread already spawned!"));
+    return Err(String::from("Rpc thread already spawned!"));
   }
 
   *guard = Some(tokio::spawn(async {
@@ -23,11 +23,11 @@ pub(crate) async fn spawn_thread(
     }
   }));
 
-  Ok(String::from("Rpc thread spawned"))
+  Ok(())
 }
 
 #[tauri::command]
-pub(crate) async fn destroy_thread() -> Result<String, String> {
+pub(crate) async fn destroy_thread() -> Result<(), String> {
   let mut guard = RPC_THREAD.lock().await;
 
   if let Some(thread) = guard.as_ref() {
@@ -35,8 +35,21 @@ pub(crate) async fn destroy_thread() -> Result<String, String> {
 
     *guard = None;
 
-    return Ok(String::from("Rpc thread destroyed"));
+    return Ok(());
   }
 
   Err(String::from("Rpc thread not found"))
+}
+
+#[tauri::command]
+pub(crate) async fn is_running() -> bool {
+  let guard = RPC_THREAD
+    .lock()
+    .await;
+
+  if let Some(thread) = guard.as_ref() {
+    return thread.is_finished()
+  }
+
+  false
 }

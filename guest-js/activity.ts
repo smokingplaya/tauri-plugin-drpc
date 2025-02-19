@@ -7,7 +7,7 @@ export enum ActivityType {
 
 export class Timestamps {
   protected start: number;
-  protected end: number | undefined;
+  protected end?: number;
 
   constructor(start: number, end?: number) {
     this.start = start;
@@ -26,10 +26,10 @@ export class Party {
 }
 
 export class Assets {
-  protected large_image: string | undefined;
-  protected large_text: string | undefined;
-  protected small_image: string | undefined;
-  protected small_text: string | undefined;
+  protected large_image?: string;
+  protected large_text?: string;
+  protected small_image?: string;
+  protected small_text?: string;
 
   setLargeImage(x: string): this {
     this.large_image = x;
@@ -53,9 +53,9 @@ export class Assets {
 }
 
 export class Secrets {
-  protected join: string | undefined;
-  protected spectate: string | undefined;
-  protected match: string | undefined;
+  protected join?: string;
+  protected spectate?: string;
+  protected match?: string;
 
   setJoin(join: string): this {
     this.join = join;
@@ -84,16 +84,14 @@ export class Button {
 }
 
 export class Activity {
-  protected state: string | undefined;
-  protected details: string | undefined;
-  protected timestamps: Timestamps | undefined;
-  protected party: Party | undefined;
-  protected assets: Assets | undefined;
-  protected secrets: Secrets | undefined;
-  protected buttons: Button[] | undefined;
-  protected activity_type: ActivityType | undefined;
-
-  // constructor() { };
+  protected state?: string;
+  protected details?: string;
+  protected timestamps?: Timestamps;
+  protected party?: Party;
+  protected assets?: Assets;
+  protected secrets?: Secrets;
+  protected buttons?: Button[];
+  protected activity_type?: ActivityType;
 
   setState(state: string): this {
     this.state = state;

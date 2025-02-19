@@ -5,6 +5,7 @@ Default permissions for the plugin
 - `allow-spawn-thread`
 - `allow-destroy-thread`
 - `allow-set-activity`
+- `allow-is-running`
 
 ## Permission Table
 
@@ -14,6 +15,32 @@ Default permissions for the plugin
 <th>Description</th>
 </tr>
 
+
+<tr>
+<td>
+
+`drpc:allow-clear-activity`
+
+</td>
+<td>
+
+Enables the clear_activity command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`drpc:deny-clear-activity`
+
+</td>
+<td>
+
+Denies the clear_activity command without any pre-configured scope.
+
+</td>
+</tr>
 
 <tr>
 <td>
@@ -37,6 +64,32 @@ Enables the destroy_thread command without any pre-configured scope.
 <td>
 
 Denies the destroy_thread command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`drpc:allow-is-running`
+
+</td>
+<td>
+
+Enables the is_running command without any pre-configured scope.
+
+</td>
+</tr>
+
+<tr>
+<td>
+
+`drpc:deny-is-running`
+
+</td>
+<td>
+
+Denies the is_running command without any pre-configured scope.
 
 </td>
 </tr>

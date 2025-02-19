@@ -11,11 +11,19 @@ static ACTIVITY: Lazy<Mutex<Option<String>>> = Lazy::new(|| Mutex::new(None));
 #[tauri::command]
 pub async fn set_activity(
   activity_json: String
-) -> Result<String, String> {
+) -> Result<(), String> {
   *ACTIVITY.lock()
     .await = Some(activity_json);
 
-  Ok(String::from("Rpc activity updated"))
+  Ok(())
+}
+
+#[tauri::command]
+pub async fn clear_activity() -> Result<(), String> {
+  *ACTIVITY.lock()
+    .await = Some(String::from("{}")); // i hope it's safe
+
+  Ok(())
 }
 
 async fn get_activity() -> Option<String> {
@@ -41,8 +49,17 @@ pub(crate) async fn initialize(
 
   loop {
     if let Some(json) = get_activity().await {
-      let payload = serde_json::from_str(&json)
-        .unwrap(); // yeah i can do that shit here
+      let payload_result = serde_json::from_str(&json);
+
+      if payload_result.is_err() {
+        log::error!("Activity has invalid JSON");
+
+        std::thread::sleep(std::time::Duration::from_secs(3));
+
+        continue;
+      }
+
+      let payload = payload_result.unwrap();
 
       if client.set_activity(payload).is_err() && client.reconnect().is_ok() {
         std::thread::sleep(std::time::Duration::from_secs(5));

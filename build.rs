@@ -1,4 +1,4 @@
-const COMMANDS: &[&str] = &["spawn_thread", "destroy_thread", "set_activity"];
+const COMMANDS: &[&str] = &["spawn_thread", "destroy_thread", "is_running", "set_activity", "clear_activity"];
 
 fn main() {
   tauri_plugin::Builder::new(COMMANDS)

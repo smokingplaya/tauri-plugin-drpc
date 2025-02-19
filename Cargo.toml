@@ -1,6 +1,6 @@
 [package]
 name = "tauri-plugin-drpc"
-version = "0.1.3"
+version = "0.1.4"
 authors = ["smokingplaya"]
 description = "A plugin for Tauri that adds support for Discord Rich Presence"
 edition = "2021"
