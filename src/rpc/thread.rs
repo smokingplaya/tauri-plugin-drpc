@@ -3,7 +3,6 @@ use tokio::{sync::Mutex, task::JoinHandle};
 
 use crate::rpc::rpc;
 
-#[allow(clippy::incompatible_msrv)]
 static RPC_THREAD: LazyLock<Mutex<Option<JoinHandle<()>>>> = LazyLock::new(Mutex::default);
 
 #[tauri::command]

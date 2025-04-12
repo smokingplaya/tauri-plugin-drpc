@@ -4,7 +4,6 @@ use tokio::{sync::Mutex, time::sleep};
 
 const SLEEP_FOR: Duration = Duration::from_secs(3);
 
-#[allow(clippy::incompatible_msrv)]
 static ACTIVITY: LazyLock<Mutex<Option<String>>> = LazyLock::new(Mutex::default);
 
 #[tauri::command]
