@@ -49,7 +49,7 @@
           "minimum": 1.0
         },
         "description": {
-          "description": "Human-readable description of what the permission does. Tauri convention is to use <h4> headings in markdown content for Tauri documentation generation purposes.",
+          "description": "Human-readable description of what the permission does. Tauri convention is to use `<h4>` headings in markdown content for Tauri documentation generation purposes.",
           "type": [
             "string",
             "null"
@@ -111,7 +111,7 @@
           "type": "string"
         },
         "description": {
-          "description": "Human-readable description of what the permission does. Tauri internal convention is to use <h4> headings in markdown content for Tauri documentation generation purposes.",
+          "description": "Human-readable description of what the permission does. Tauri internal convention is to use `<h4>` headings in markdown content for Tauri documentation generation purposes.",
           "type": [
             "string",
             "null"
@@ -297,57 +297,68 @@
         {
           "description": "Enables the clear_activity command without any pre-configured scope.",
           "type": "string",
-          "const": "allow-clear-activity"
+          "const": "allow-clear-activity",
+          "markdownDescription": "Enables the clear_activity command without any pre-configured scope."
         },
         {
           "description": "Denies the clear_activity command without any pre-configured scope.",
           "type": "string",
-          "const": "deny-clear-activity"
+          "const": "deny-clear-activity",
+          "markdownDescription": "Denies the clear_activity command without any pre-configured scope."
         },
         {
           "description": "Enables the destroy_thread command without any pre-configured scope.",
           "type": "string",
-          "const": "allow-destroy-thread"
+          "const": "allow-destroy-thread",
+          "markdownDescription": "Enables the destroy_thread command without any pre-configured scope."
         },
         {
           "description": "Denies the destroy_thread command without any pre-configured scope.",
           "type": "string",
-          "const": "deny-destroy-thread"
+          "const": "deny-destroy-thread",
+          "markdownDescription": "Denies the destroy_thread command without any pre-configured scope."
         },
         {
           "description": "Enables the is_running command without any pre-configured scope.",
           "type": "string",
-          "const": "allow-is-running"
+          "const": "allow-is-running",
+          "markdownDescription": "Enables the is_running command without any pre-configured scope."
         },
         {
           "description": "Denies the is_running command without any pre-configured scope.",
           "type": "string",
-          "const": "deny-is-running"
+          "const": "deny-is-running",
+          "markdownDescription": "Denies the is_running command without any pre-configured scope."
         },
         {
           "description": "Enables the set_activity command without any pre-configured scope.",
           "type": "string",
-          "const": "allow-set-activity"
+          "const": "allow-set-activity",
+          "markdownDescription": "Enables the set_activity command without any pre-configured scope."
         },
         {
           "description": "Denies the set_activity command without any pre-configured scope.",
           "type": "string",
-          "const": "deny-set-activity"
+          "const": "deny-set-activity",
+          "markdownDescription": "Denies the set_activity command without any pre-configured scope."
         },
         {
           "description": "Enables the spawn_thread command without any pre-configured scope.",
           "type": "string",
-          "const": "allow-spawn-thread"
+          "const": "allow-spawn-thread",
+          "markdownDescription": "Enables the spawn_thread command without any pre-configured scope."
         },
         {
           "description": "Denies the spawn_thread command without any pre-configured scope.",
           "type": "string",
-          "const": "deny-spawn-thread"
+          "const": "deny-spawn-thread",
+          "markdownDescription": "Denies the spawn_thread command without any pre-configured scope."
         },
         {
-          "description": "Default permissions for the plugin",
+          "description": "Default permissions for the plugin\n#### This default permission set includes:\n\n- `allow-spawn-thread`\n- `allow-destroy-thread`\n- `allow-set-activity`\n- `allow-is-running`",
           "type": "string",
-          "const": "default"
+          "const": "default",
+          "markdownDescription": "Default permissions for the plugin\n#### This default permission set includes:\n\n- `allow-spawn-thread`\n- `allow-destroy-thread`\n- `allow-set-activity`\n- `allow-is-running`"
         }
       ]
     }

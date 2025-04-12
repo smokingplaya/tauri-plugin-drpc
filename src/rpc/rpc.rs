@@ -1,73 +1,54 @@
-use std::{error::Error, time::Duration};
-use anyhow::Result;
+use std::{error::Error, sync::LazyLock, time::Duration};
 use rpcdiscord::{DiscordIpc, DiscordIpcClient};
-use once_cell::sync::Lazy;
 use tokio::{sync::Mutex, time::sleep};
 
 const SLEEP_FOR: Duration = Duration::from_secs(3);
 
-static ACTIVITY: Lazy<Mutex<Option<String>>> = Lazy::new(|| Mutex::new(None));
+#[allow(clippy::incompatible_msrv)]
+static ACTIVITY: LazyLock<Mutex<Option<String>>> = LazyLock::new(Mutex::default);
 
 #[tauri::command]
-pub async fn set_activity(
-  activity_json: String
-) -> Result<(), String> {
-  *ACTIVITY.lock()
-    .await = Some(activity_json);
-
+pub async fn set_activity(activity_json: String) -> Result<(), String> {
+  *ACTIVITY.lock().await = Some(activity_json);
   Ok(())
 }
 
 #[tauri::command]
 pub async fn clear_activity() -> Result<(), String> {
-  *ACTIVITY.lock()
-    .await = Some(String::from("{}")); // i hope it's safe
-
+  *ACTIVITY.lock().await = Some("{}".to_string()); // Очистка активити
   Ok(())
 }
 
 async fn get_activity() -> Option<String> {
-  ACTIVITY.lock()
-    .await
-    .as_ref()
-    .cloned()
+  ACTIVITY.lock().await.as_ref().cloned()
 }
 
-pub(crate) async fn initialize(
-  id: String
-) -> Result<(), Box<dyn Error>> {
+pub(crate) async fn initialize(id: String) -> Result<(), Box<dyn Error>> {
   let mut client = DiscordIpcClient::new(&id)?;
 
+  // Подключение к Discord IPC
   loop {
     if client.connect().is_ok() {
-        break;
+      break;
     }
-
-    sleep(SLEEP_FOR)
-      .await;
+    sleep(SLEEP_FOR).await;
   }
 
+  // Основной цикл обновления активности
   loop {
     if let Some(json) = get_activity().await {
       let payload_result = serde_json::from_str(&json);
 
-      if payload_result.is_err() {
+      if let Ok(payload) = payload_result {
+        if client.set_activity(payload).is_err() && client.reconnect().is_ok() {
+          std::thread::sleep(Duration::from_secs(5));
+          continue;
+        }
+        std::thread::sleep(Duration::from_secs(1));
+      } else {
         log::error!("Activity has invalid JSON");
-
-        std::thread::sleep(std::time::Duration::from_secs(3));
-
-        continue;
+        std::thread::sleep(Duration::from_secs(3));
       }
-
-      let payload = payload_result.unwrap();
-
-      if client.set_activity(payload).is_err() && client.reconnect().is_ok() {
-        std::thread::sleep(std::time::Duration::from_secs(5));
-
-        continue;
-    }
-
-      std::thread::sleep(std::time::Duration::from_secs(1));
     }
   }
 }
